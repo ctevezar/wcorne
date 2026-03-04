@@ -6,7 +6,7 @@
 / {
     combos {
         compatible = "zmk,combos";
-        // Mantengo tu combo, pero OJO: &tog 4 requiere que exista layer 4.
+        // OJO: &tog 4 requiere que exista layer 4.
         // Si NO tenés layer 4, cambialo a &tog 3 o eliminá el combo.
         music {
             bindings = <&tog 4>;
@@ -36,6 +36,34 @@
             tapping-term-ms = <200>;
             bindings = <&kp RIGHT>, <&kp END>;
         };
+
+        // -------------------------
+        // Ajuste 1: Option en HOLD de Z, con tapping-term más alto
+        // Tap: z
+        // Hold: Option (LALT)
+        // -------------------------
+        mt_opt_z: mt_opt_z {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MT_OPT_Z";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            flavor = "tap-preferred";
+            bindings = <&kp Z>, <&kp LALT>;
+        };
+
+        // -------------------------
+        // Ajuste 2: SPACE con hold para Layer 2, con tapping-term más alto
+        // Tap: SPACE
+        // Hold: momentary Layer 2
+        // -------------------------
+        lt2_space: lt2_space {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LT2_SPACE";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            flavor = "tap-preferred";
+            bindings = <&kp SPACE>, <&mo 2>;
+        };
     };
 
     keymap {
@@ -51,16 +79,13 @@
             bindings = <
 &kp TAB          &kp Q            &kp W            &kp E            &kp R            &kp T              &kp Y            &kp U            &kp I            &kp O            &kp P            &kp BSPC
 &td_lshft_caps   &mt LCTRL A      &mt LALT S       &mt LGUI D       &mt LSHFT F      &kp G              &kp H            &mt RSHFT J       &mt RGUI K        &mt RALT L        &mt RCTRL SEMI    &kp LBKT
-&kp ESC          &kp Z            &kp X            &kp C            &kp V            &kp B              &kp N            &kp M            &kp COMMA        &kp DOT          &kp FSLH         &kp RBKT
-                              &kp LALT        &kp LGUI        &lt 2 SPACE        &kp RET        &mo 1         &kp RCTRL
+&kp ESC          &mt_opt_z        &kp X            &kp C            &kp V            &kp B              &kp N            &kp M            &kp COMMA        &kp DOT          &kp FSLH         &kp RBKT
+                              &kp LALT        &kp LGUI        &lt2_space         &kp RET        &mo 1         &kp RCTRL
             >;
         };
 
         // ------------------------------------------------
         // Layer 1 (MO1): Números + navegación + edición
-        // - Flechas en mano izquierda (HJKL style pero literal)
-        // - Home/End con tap-dance (izq=LEFT/HOME, der=RIGHT/END)
-        // - Números tipo numpad en mano derecha
         // ------------------------------------------------
         lower_layer {
             bindings = <
@@ -73,10 +98,6 @@
 
         // ------------------------------------------------
         // Layer 2 (hold SPACE): Símbolos dev + Bluetooth
-        // Ideas:
-        // - Pares juntos: {} () <> []  | \  _ + : "
-        // - Flechas rápidas y operadores típicos
-        // - BT: seleccionar perfil 0..4 + prev/next/clear
         // ------------------------------------------------
         raise_layer {
             bindings = <
@@ -89,8 +110,6 @@
 
         // ------------------------------------------------
         // Layer 3: Se activa cuando están activos 1 + 2
-        // (tu conditional_layers)
-        // Mantengo tu idea: power on/off + algunos símbolos útiles
         // ------------------------------------------------
         layer_3 {
             bindings = <

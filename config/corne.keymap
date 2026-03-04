@@ -48,7 +48,7 @@
             #binding-cells = <0>;
             tapping-term-ms = <250>;
             flavor = "tap-preferred";
-            bindings = <&kp LALT>, <&kp Z>;
+            bindings = <&kp LALT> <&kp Z>;
         };
 
         // -------------------------
@@ -62,7 +62,7 @@
             #binding-cells = <0>;
             tapping-term-ms = <250>;
             flavor = "tap-preferred";
-            bindings = <&mo 2>, <&kp SPACE>;
+            bindings = <&mo 2> <&kp SPACE>;
         };
     };
 
